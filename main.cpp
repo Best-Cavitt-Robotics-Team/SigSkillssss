@@ -3,6 +3,8 @@
 using namespace vex;
 competition Competition;
 
+vex::task odomTask;
+
 /*---------------------------------------------------------------------------*/
 /*                             VEXcode Config                                */
 /*                                                                           */
@@ -102,9 +104,11 @@ PORT3,
 2,
 
 //Sideways tracker center distance (positive distance is behind the center of the robot, negative is in front):
-0.75
+0.2
 
 );
+
+
 
 int current_auton_selection = 0;
 bool auto_started = false;
@@ -121,6 +125,11 @@ void pre_auton() {
   vexcodeInit();
   default_constants();
 
+  //Inertial.calibrate();
+  horizontalRotational.resetPosition();
+  verticalRotational.resetPosition();
+
+
   while(!auto_started){
     Brain.Screen.clearScreen();
     Brain.Screen.printAt(5, 20, "JAR Template v1.2.0");
@@ -130,9 +139,9 @@ void pre_auton() {
     Brain.Screen.printAt(5, 100, "%f", chassis.get_absolute_heading());
     Brain.Screen.printAt(5, 120, "Selected Auton:");
     Brain.Screen.printAt(5, 160, "Horizontal Tracking:");
-    Brain.Screen.printAt(5, 180, "%d", horizontalRotational.position(degrees));
+    Brain.Screen.printAt(5, 180, "%.0f deg", horizontalRotational.position(degrees));
     Brain.Screen.printAt(5, 200, "Verical Tracking:");
-    Brain.Screen.printAt(5, 220, "%d", verticalRotational.position(degrees));
+    Brain.Screen.printAt(5, 220, "%.0f deg", verticalRotational.position(degrees));
     switch(current_auton_selection){
       case 0:
         Brain.Screen.printAt(5, 140, "Auton 1");
@@ -181,25 +190,32 @@ void autonomous(void) {
   switch(current_auton_selection){ 
     case 0:
       //drive_test();
-      // line up the top of the drivetrain at the edge of the 4th tile horizontally
-      //line up the middle of the drivetrain with the top of the first row of tiles
-      chassis.set_coordinates(88.5, 24, 90);
+      // // line up the top of the drivetrain at the edge of the 4th tile horizontally
+      // //line up the middle of the drivetrain with the top of the first row of tiles
+      // chassis.set_coordinates(88.5, 24, 90);
       
-      // drive forward, put scraper down, turn
-      chassis.drive_to_point(118-3, 24);
-      leftScraper.set(true);
-      rightScraper.set(true);
-      wait(1, seconds);
-      chassis.turn_to_angle(180);
-      wait(2, seconds);
+      // // drive forward, put scraper down, turn
+      // chassis.drive_to_pose(114, 24, 90);
+      // leftScraper.set(true);
+      // rightScraper.set(true);
+      // wait(1, seconds);
+      // chassis.turn_to_angle(180);
+      // wait(2, seconds);
 
-      // run intake, drive forward into matchloader
-      //bottomIntake.spinFor(vex::directionType::fwd, 5, seconds, 100, vex::velocityUnits::pct);
-      bottomIntake.spin(reverse, 100, percent);
-      wait(2, seconds);
-      chassis.drive_to_point(118+3, 15, 0, 6, 6);
+      // // run intake, drive forward into matchloader, matchload
+      // //bottomIntake.spinFor(vex::directionType::fwd, 5, seconds, 100, vex::velocityUnits::pct);
+      // bottomIntake.spin(reverse, 100, percent);
+      // wait(1, seconds);
+      // chassis.drive_to_point(118, 10, 0, 8, 6);
+      // wait(5, seconds);
 
+      // //drive back to long goal
+      // chassis.drive_to_pose(118, 40, 180);
+      // topIntake.spin(reverse, 100, percent);
+      
+      auton1();
 
+      //odom_test();
 
       break;
     case 1:         
@@ -267,6 +283,7 @@ int main() {
 
   // Run the pre-autonomous function.
   pre_auton();
+
 
   // Prevent main from exiting with an infinite loop.
   while (true) {
