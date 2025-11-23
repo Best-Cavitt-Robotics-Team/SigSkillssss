@@ -26,6 +26,7 @@ vex::task odomTask;
 /*---------------------------------------------------------------------------*/
 
 Drive chassis(
+  
 
 //Pick your drive setup from the list below:
 //ZERO_TRACKER_NO_ODOM
@@ -93,18 +94,17 @@ PORT4,
 
 //Input Forward Tracker center distance (a positive distance corresponds to a tracker on the right side of the robot, negative is left.)
 //For a zero tracker tank drive with odom, put the positive distance from the center of the robot to the right side of the drive.
-//This distance is in inches:
+//This distance is in inches: //-.375
 -0.375,
 
 
 //Input the Sideways Tracker Port, following the same steps as the Forward Tracker Port:
 PORT3,
-
 //Sideways tracker diameter (reverse to make the direction switch):
 2,
 
-//Sideways tracker center distance (positive distance is behind the center of the robot, negative is in front):
-0.2
+//Sideways tracker center distance (positive distance is behind the center of the robot, negative is in front): //0.5
+0.5
 
 );
 
@@ -132,9 +132,10 @@ void pre_auton() {
 
   while(!auto_started){
     Brain.Screen.clearScreen();
-    Brain.Screen.printAt(5, 20, "JAR Template v1.2.0");
-    Brain.Screen.printAt(5, 40, "Battery Percentage:");
-    Brain.Screen.printAt(5, 60, "%d", Brain.Battery.capacity());
+    //Brain.Screen.printAt(5, 20, "Hello");
+     Brain.Screen.printAt(5, 20, "JAR Template v1.2.0");
+     Brain.Screen.printAt(5, 40, "Battery Percentage:");
+     Brain.Screen.printAt(5, 60, "%d", Brain.Battery.capacity());
     Brain.Screen.printAt(5, 80, "Chassis Heading Reading:");
     Brain.Screen.printAt(5, 100, "%f", chassis.get_absolute_heading());
     Brain.Screen.printAt(5, 120, "Selected Auton:");
@@ -189,6 +190,11 @@ void autonomous(void) {
   auto_started = true;
   switch(current_auton_selection){ 
     case 0:
+
+  
+      //auton1();
+      auton1();
+      //auton1();
       //drive_test();
       // // line up the top of the drivetrain at the edge of the 4th tile horizontally
       // //line up the middle of the drivetrain with the top of the first row of tiles
@@ -212,8 +218,6 @@ void autonomous(void) {
       // //drive back to long goal
       // chassis.drive_to_pose(118, 40, 180);
       // topIntake.spin(reverse, 100, percent);
-      
-      auton1();
 
       //odom_test();
 
