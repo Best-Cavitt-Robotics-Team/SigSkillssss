@@ -9,28 +9,32 @@ brain  Brain;
 
 //The motor constructor takes motors as (port, ratio, reversed), so for example
 //motor LeftFront = motor(PORT1, ratio6_1, false);
+controller Controller = controller(primary);
 
+motor RightFront = motor(PORT10, ratio6_1, false);
+motor RightMiddle = motor(PORT9, ratio6_1, true);
+motor RightBack = motor(PORT8, ratio6_1, false);// in 9 right now
+
+motor LeftFront = motor(PORT7, ratio6_1, true);
+motor LeftMiddle = motor(PORT6, ratio6_1, false);
+motor LeftBack = motor(PORT5, ratio6_1, true); 
+
+motor IntakeBottom = motor(PORT1, ratio18_1, false);
+motor IntakeTop = motor(PORT2, ratio18_1, false);
+
+pneumatics Scraper1(Brain.ThreeWirePort.H);
+pneumatics Scraper2(Brain.ThreeWirePort.G);
+pneumatics descore(Brain.ThreeWirePort.F);
+pneumatics middleGoal(Brain.ThreeWirePort.E);
+
+led WheelPiston(Brain.ThreeWirePort.C);
 //Add your devices below, and don't forget to do the same in robot-config.h:
 
-motor bottomIntake = motor(PORT1, ratio6_1, false);
-motor topIntake = motor(PORT2, ratio6_1, false);
+inertial Inertial = inertial(PORT19);
 
-motor leftFront = motor(PORT5, ratio6_1, true);
-motor leftMid = motor(PORT6, ratio6_1, false);
-motor leftBack = motor(PORT7, ratio6_1, true);
-motor rightFront = motor(PORT8, ratio6_1, false);
-motor rightMid = motor(PORT9, ratio6_1, true);
-motor rightBack = motor(PORT10, ratio6_1, false);
+rotation VerticalOdom = rotation(PORT4, true);
+rotation HorizontalOdom = rotation(PORT3, false);
 
-rotation horizontalRotational = rotation(PORT3, false);
-rotation verticalRotational = rotation(PORT4, false);
-
-inertial Intertial = inertial(PORT19);
-
-pneumatics leftScraper = pneumatics(Brain.ThreeWirePort.H);
-pneumatics rightScraper = pneumatics(Brain.ThreeWirePort.G);
-pneumatics descore = pneumatics(Brain.ThreeWirePort.F);
-pneumatics middleGoal = pneumatics(Brain.ThreeWirePort.E);
 
 void vexcodeInit( void ) {
   // nothing to initialize

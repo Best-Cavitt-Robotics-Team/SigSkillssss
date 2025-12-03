@@ -1,9 +1,10 @@
+
+
 #include "vex.h"
+#include "autons.h"
 
 using namespace vex;
 competition Competition;
-
-vex::task odomTask;
 
 /*---------------------------------------------------------------------------*/
 /*                             VEXcode Config                                */
@@ -26,7 +27,6 @@ vex::task odomTask;
 /*---------------------------------------------------------------------------*/
 
 Drive chassis(
-  
 
 //Pick your drive setup from the list below:
 //ZERO_TRACKER_NO_ODOM
@@ -41,16 +41,16 @@ Drive chassis(
 //HOLONOMIC_TWO_ROTATION
 //
 //Write it here:
-TANK_TWO_ROTATION,
+ZERO_TRACKER_NO_ODOM,
 
 //Add the names of your Drive motors into the motor groups below, separated by commas, i.e. motor_group(Motor1,Motor2,Motor3).
 //You will input whatever motor names you chose when you configured your robot using the sidebar configurer, they don't have to be "Motor1" and "Motor2".
 
 //Left Motors:
-motor_group(leftFront,leftMid,leftBack),
+motor_group(LeftFront, LeftMiddle, LeftBack),
 
 //Right Motors:
-motor_group(rightFront,rightMid,rightBack),
+motor_group(RightFront, RightMiddle, RightBack),
 
 //Specify the PORT NUMBER of your inertial sensor, in PORT format (i.e. "PORT1", not simply "1"):
 PORT19,
@@ -61,11 +61,11 @@ PORT19,
 //External ratio, must be in decimal, in the format of input teeth/output teeth.
 //If your motor has an 84-tooth gear and your wheel has a 60-tooth gear, this value will be 1.4.
 //If the motor drives the wheel directly, this value is 1:
-0.75,
+(0.75),
 
 //Gyro scale, this is what your gyro reads when you spin the robot 360 degrees.
 //For most cases 360 will do fine here, but this scale factor can be very helpful when precision is necessary.
-356.45,
+359,
 
 /*---------------------------------------------------------------------------*/
 /*                                  PAUSE!                                   */
@@ -87,28 +87,26 @@ PORT3,     -PORT4,
 //If you are using position tracking, this is the Forward Tracker port (the tracker which runs parallel to the direction of the chassis).
 //If this is a rotation sensor, enter it in "PORT1" format, inputting the port below.
 //If this is an encoder, enter the port as an integer. Triport A will be a "1", Triport B will be a "2", etc.
-PORT4,
+PORT5,
 
-//Input the Forward Tracker diameter (reverse it to make the direction switch): //center = (7.25, 7.5), horizontal is 0.75 inch above the center, veritcla tracking is 0.375 ich left of center
+//Input the Forward Tracker diameter (reverse it to make the direction switch):
 2,
 
 //Input Forward Tracker center distance (a positive distance corresponds to a tracker on the right side of the robot, negative is left.)
 //For a zero tracker tank drive with odom, put the positive distance from the center of the robot to the right side of the drive.
-//This distance is in inches: //-.375
--0.375,
-
+//This distance is in inches:
+-0.5,
 
 //Input the Sideways Tracker Port, following the same steps as the Forward Tracker Port:
-PORT3,
+PORT7,
+
 //Sideways tracker diameter (reverse to make the direction switch):
 2,
 
-//Sideways tracker center distance (positive distance is behind the center of the robot, negative is in front): //0.5
-0.5
+//Sideways tracker center distance (positive distance is behind the center of the robot, negative is in front):
+-3
 
 );
-
-
 
 int current_auton_selection = 0;
 bool auto_started = false;
@@ -125,30 +123,20 @@ void pre_auton() {
   vexcodeInit();
   default_constants();
 
-  //Inertial.calibrate();
-  horizontalRotational.resetPosition();
-  verticalRotational.resetPosition();
-
-
   while(!auto_started){
     Brain.Screen.clearScreen();
-    //Brain.Screen.printAt(5, 20, "Hello");
-     Brain.Screen.printAt(5, 20, "JAR Template v1.2.0");
-     Brain.Screen.printAt(5, 40, "Battery Percentage:");
-     Brain.Screen.printAt(5, 60, "%d", Brain.Battery.capacity());
+    Brain.Screen.printAt(5, 20, "JAR Template v1.2.0");
+    Brain.Screen.printAt(5, 40, "Battery Percentage:");
+    Brain.Screen.printAt(5, 60, "%d", Brain.Battery.capacity());
     Brain.Screen.printAt(5, 80, "Chassis Heading Reading:");
     Brain.Screen.printAt(5, 100, "%f", chassis.get_absolute_heading());
     Brain.Screen.printAt(5, 120, "Selected Auton:");
-    Brain.Screen.printAt(5, 160, "Horizontal Tracking:");
-    Brain.Screen.printAt(5, 180, "%.0f deg", horizontalRotational.position(degrees));
-    Brain.Screen.printAt(5, 200, "Verical Tracking:");
-    Brain.Screen.printAt(5, 220, "%.0f deg", verticalRotational.position(degrees));
     switch(current_auton_selection){
       case 0:
-        Brain.Screen.printAt(5, 140, "Auton 1");
+        Brain.Screen.printAt(5, 140, "Prog Skills");
         break;
       case 1:
-        Brain.Screen.printAt(5, 140, "Auton 2");
+        Brain.Screen.printAt(5, 140, "Blue Left and Red Left");
         break;
       case 2:
         Brain.Screen.printAt(5, 140, "Auton 3");
@@ -190,59 +178,16 @@ void autonomous(void) {
   auto_started = true;
   switch(current_auton_selection){ 
     case 0:
-
-  
-      //auton1();
-      auton1();
-      //auton1();
-      //drive_test();
-      // // line up the top of the drivetrain at the edge of the 4th tile horizontally
-      // //line up the middle of the drivetrain with the top of the first row of tiles
-      // chassis.set_coordinates(88.5, 24, 90);
+    Brain.Screen.clearScreen();
+    Brain.Screen.printAt(5, 20, "JAR Template v1.2.0");
+    Brain.Screen.printAt(5, 40, "Battery Percentage:");
+    Brain.Screen.printAt(5, 60, "%d", Brain.Battery.capacity());
+    Brain.Screen.printAt(5, 80, "Chassis Heading Reading:");
+    Brain.Screen.printAt(5, 100, "%f", chassis.get_absolute_heading());
+    Brain.Screen.printAt(5, 120, "Selected Auton:");
+    coordsskills();
       
-      // // drive forward, put scraper down, turn
-      // chassis.drive_to_pose(114, 24, 90);
-      // leftScraper.set(true);
-      // rightScraper.set(true);
-      // wait(1, seconds);
-      // chassis.turn_to_angle(180);
-      // wait(2, seconds);
-
-      // // run intake, drive forward into matchloader, matchload
-      // //bottomIntake.spinFor(vex::directionType::fwd, 5, seconds, 100, vex::velocityUnits::pct);
-      // bottomIntake.spin(reverse, 100, percent);
-      // wait(1, seconds);
-      // chassis.drive_to_point(118, 10, 0, 8, 6);
-      // wait(5, seconds);
-
-      // //drive back to long goal
-      // chassis.drive_to_pose(118, 40, 180);
-      // topIntake.spin(reverse, 100, percent);
-
-      //odom_test();
-
-      break;
-    case 1:         
-      drive_test();
-      break;
-    case 2:
-      turn_test();
-      break;
-    case 3:
-      swing_test();
-      break;
-    case 4:
-      full_test();
-      break;
-    case 5:
-      odom_test();
-      break;
-    case 6:
-      tank_odom_test();
-      break;
-    case 7:
-      holonomic_odom_test();
-      break;
+    break;
  }
 }
 
@@ -267,10 +212,114 @@ void usercontrol(void) {
     // Insert user code here. This is where you use the joystick values to
     // update your motors, etc.
     // ........................................................................
+    
+
+    LeftBack.setVelocity(100, percent);
+    LeftMiddle.setVelocity(100, percent);
+    LeftFront.setVelocity(100, percent);
+
+    RightBack.setVelocity(100, percent);
+    RightMiddle.setVelocity(100, percent);
+    RightFront.setVelocity(100, percent);
+
+
+    // LeftBack.spin(forward, Controller.Axis3.position(), volt); //if doesnt work change volt to percent
+    // LeftMiddle.spin(forward, Controller.Axis3.position(), volt);
+    // LeftFront.spin(forward, Controller.Axis3.position(), volt);
+
+    // RightBack.spin(forward, Controller.Axis2.position(), volt);
+    // RightMiddle.spin(forward, Controller.Axis2.position(), volt);
+    // RightFront.spin(forward, Controller.Axis2.position(), volt);
+
+    // double turnVal = Controller.Axis1.position(percent);
+    // double forwardVal = Controller.Axis3.position(percent);
+
+    // double turnVolts = turnVal * 0.12;
+    // double forwadsVolts = forwardVal * 0.12;
+
+
+    
+    LeftBack.spin(forward, (Controller.Axis3.position()+Controller.Axis1.position()), percent); //if doesnt work change volt to percent
+    LeftMiddle.spin(forward, (Controller.Axis3.position()+Controller.Axis1.position()), percent);
+    LeftFront.spin(forward, (Controller.Axis3.position()+Controller.Axis1.position()), percent);
+
+    RightBack.spin(forward, (Controller.Axis3.position()-Controller.Axis1.position()), percent);
+    RightMiddle.spin(forward, (Controller.Axis3.position()-Controller.Axis1.position()), percent);
+    RightFront.spin(forward, (Controller.Axis3.position()-Controller.Axis1.position()), percent);
+
+
+    // LeftBack.spin(forward, forwadsVolts-turnVolts, volt); //if doesnt work change volt to percent
+    // LeftMiddle.spin(forward, forwadsVolts-turnVolts, volt);
+    // LeftFront.spin(forward, forwadsVolts-turnVolts, volt);
+
+    // RightBack.spin(forward, forwadsVolts+turnVolts, volt);
+    // RightMiddle.spin(forward, forwadsVolts+turnVolts, volt);
+    // RightFront.spin(forward, forwadsVolts+turnVolts, volt);
+
+    IntakeBottom.setVelocity(100, percent);
+    
+    IntakeTop.setVelocity(100, percent);
+
+    if(Controller.ButtonR1.pressing()){
+      IntakeBottom.spin(reverse);
+      
+      IntakeTop.spin(reverse);
+    }
+    else if(Controller.ButtonR2.pressing()){
+      IntakeBottom.spin(forward);
+      
+      IntakeTop.spin(forward);
+    }
+    else if(Controller.ButtonL1.pressing()){
+      IntakeBottom.spin(reverse);
+      
+      
+    }
+    
+    else if(Controller.ButtonL2.pressing()){
+      IntakeBottom.spin(forward);
+      
+      //IntakeTop.stop(hold);
+      IntakeTop.setStopping(brakeType::hold);
+    }
+    else{
+      IntakeBottom.stop();
+      
+      IntakeTop.stop();
+    }
+
+
+
+
+
+  
+
+
+    if(Controller.ButtonX.pressing()){
+      Scraper1.set(true);
+      Scraper2.set(true);
+    }
+
+    if(Controller.ButtonY.pressing()){
+      Scraper1.set(false);
+      Scraper2.set(false);
+    }
+
+    
+    if(Controller.ButtonA.pressing()){
+      descore.set(true);
+    }
+
+    if(Controller.ButtonB.pressing()){
+      descore.set(false);
+    }
+    
+    
+    
 
     //Replace this line with chassis.control_tank(); for tank drive 
     //or chassis.control_holonomic(); for holo drive.
-    chassis.control_arcade();
+    //chassis.control_tank();
 
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
@@ -287,7 +336,6 @@ int main() {
 
   // Run the pre-autonomous function.
   pre_auton();
-
 
   // Prevent main from exiting with an infinite loop.
   while (true) {
