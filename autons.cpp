@@ -122,66 +122,64 @@ void skills(){
   IntakeBottom.setVelocity(100, percent);  
   IntakeTop.setVelocity(100, percent);
 
-  chassis.drive_distance(32);
+  chassis.drive_distance(33);
   wait(100, msec);
   chassis.turn_to_angle(90);
   Scraper1.set(true);
   Scraper2.set(true);
-  chassis.drive_max_voltage = 6;
+  chassis.drive_max_voltage = 4;
   IntakeBottom.spin(reverse);
-  wait(500, msec);
-  chassis.drive_distance(11);
-  wait(4, sec);
+  wait(100, msec);
+  chassis.drive_distance(12);
+  wait(2, sec);
 //get blocks from the first loader
 
   chassis.drive_max_voltage = 10;
   chassis.drive_distance(-5);
   Scraper1.set(false);
   Scraper2.set(false);
-  chassis.drive_distance(3);
-  chassis.drive_distance(-3);
+  chassis.drive_distance(2);
+  chassis.drive_distance(-2);
   IntakeBottom.stop();
   chassis.turn_to_angle(-45);
-  chassis.drive_distance(20);
+  chassis.drive_distance(24);
   chassis.right_swing_to_angle(-90);
-  chassis.drive_distance(72);
+  chassis.drive_distance(68);
   //go through the first ally
 
   chassis.right_swing_to_angle(-45);
-  chassis.drive_distance(-14);
+  chassis.drive_distance(-13);
   chassis.turn_to_angle(-90);
+  IntakeBottom.spin(reverse);
+  IntakeTop.spin(reverse);
   chassis.drive_distance(-5);
   //align with the goal
 
-  IntakeBottom.spin(reverse);
-  IntakeTop.spin(reverse);
-  wait(4, sec);
+
+  wait(2.5, sec);
   //score blocks
 
   IntakeTop.stop(); 
   Scraper1.set(true);
   Scraper2.set(true);
   chassis.drive_max_voltage = 4;
-  chassis.drive_distance(29.25);
+  chassis.drive_distance(28.5);
   wait(3,sec);
   //collect blocks from the second loader
 
   chassis.drive_distance(-29.25);
-  chassis.drive_distance(5);
-  wait(500, msec);
-  chassis.drive_distance(-5);
   IntakeTop.spin(reverse);
-  wait(3, sec);
+  wait(4, sec);
   //score blocks from second loader
 
   Scraper1.set(false);
   Scraper2.set(false);
-  chassis.drive_max_voltage = 10;
+  chassis.drive_max_voltage = 8;
   IntakeBottom.stop();
   IntakeTop.stop();
   chassis.drive_distance(15);
   chassis.turn_to_angle(180);
-  chassis.drive_distance(100);
+  chassis.drive_distance(96);
   chassis.turn_to_angle(-87);
   //go across the field and line up with the third loader
 
@@ -189,7 +187,7 @@ void skills(){
   Scraper2.set(true);
   chassis.drive_max_voltage = 4;
   IntakeBottom.spin(reverse);
-  chassis.drive_distance(18);
+  chassis.drive_distance(18.5);
   wait(3, sec);
   //colect blocks from the third loader
 
@@ -197,13 +195,15 @@ void skills(){
   chassis.drive_distance(-5);
   Scraper1.set(false);
   Scraper2.set(false);
-  chassis.drive_distance(3);
-  chassis.drive_distance(-3);
+  chassis.drive_distance(1);
+  chassis.drive_distance(-1);
   IntakeBottom.stop();
   chassis.turn_to_angle(-225);
-  chassis.drive_distance(20);
-  chassis.right_swing_to_angle(87);
-  chassis.drive_distance(72);
+  chassis.drive_distance(24);
+  chassis.right_swing_to_angle(94);
+  
+  chassis.drive_distance(68);
+  
   //go in the second ally
 
   chassis.right_swing_to_angle(-225);
@@ -233,9 +233,13 @@ void skills(){
   wait(3, sec);
   //score blocks from the fourth loader
   
+  chassis.drive_distance(20 );
+  chassis.turn_to_angle(45);
   chassis.drive_distance(30);
-  chassis.turn_to_angle(15);
+  chassis.right_swing_to_angle(0);
   chassis.drive_distance(30);
+  Scraper1.set(false);
+  Scraper2.set(false);
 
 
 
