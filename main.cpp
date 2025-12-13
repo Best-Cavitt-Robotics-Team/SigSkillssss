@@ -185,7 +185,7 @@ void autonomous(void) {
     Brain.Screen.printAt(5, 80, "Chassis Heading Reading:");
     Brain.Screen.printAt(5, 100, "%f", chassis.get_absolute_heading());
     Brain.Screen.printAt(5, 120, "Selected Auton:");
-    coordsskills();
+    skills();
       
     break;
  }

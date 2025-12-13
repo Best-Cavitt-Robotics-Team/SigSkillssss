@@ -130,16 +130,14 @@ void skills(){
   chassis.drive_max_voltage = 4;
   IntakeBottom.spin(reverse);
   wait(100, msec);
-  chassis.drive_distance(12);
-  wait(2, sec);
+  chassis.drive_distance(10.5);
+  wait(2.5, sec);
 //get blocks from the first loader
 
   chassis.drive_max_voltage = 10;
   chassis.drive_distance(-5);
   Scraper1.set(false);
   Scraper2.set(false);
-  chassis.drive_distance(2);
-  chassis.drive_distance(-2);
   IntakeBottom.stop();
   chassis.turn_to_angle(-45);
   chassis.drive_distance(24);
@@ -163,7 +161,7 @@ void skills(){
   Scraper1.set(true);
   Scraper2.set(true);
   chassis.drive_max_voltage = 4;
-  chassis.drive_distance(28.5);
+  chassis.drive_distance(28.75);
   wait(3,sec);
   //collect blocks from the second loader
 
@@ -179,7 +177,7 @@ void skills(){
   IntakeTop.stop();
   chassis.drive_distance(15);
   chassis.turn_to_angle(180);
-  chassis.drive_distance(96);
+  chassis.drive_distance(93);
   chassis.turn_to_angle(-87);
   //go across the field and line up with the third loader
 
@@ -187,7 +185,7 @@ void skills(){
   Scraper2.set(true);
   chassis.drive_max_voltage = 4;
   IntakeBottom.spin(reverse);
-  chassis.drive_distance(18.5);
+  chassis.drive_distance(20);
   wait(3, sec);
   //colect blocks from the third loader
 
@@ -195,12 +193,10 @@ void skills(){
   chassis.drive_distance(-5);
   Scraper1.set(false);
   Scraper2.set(false);
-  chassis.drive_distance(1);
-  chassis.drive_distance(-1);
   IntakeBottom.stop();
   chassis.turn_to_angle(-225);
   chassis.drive_distance(24);
-  chassis.right_swing_to_angle(94);
+  chassis.right_swing_to_angle(90);
   
   chassis.drive_distance(68);
   
@@ -221,14 +217,12 @@ void skills(){
   chassis.drive_max_voltage = 4;
   Scraper1.set(true);
   Scraper2.set(true);
-  chassis.drive_distance(29.25);
+  chassis.drive_distance(28.5);
   wait(3,sec);
   //get blocks from the fourth loader
 
   chassis.drive_distance(-29.25);
-  chassis.drive_distance(5);
-  wait(500, msec);
-  chassis.drive_distance(-5);
+
   IntakeTop.spin(reverse);
   wait(3, sec);
   //score blocks from the fourth loader
